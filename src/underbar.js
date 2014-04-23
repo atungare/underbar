@@ -180,6 +180,14 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+    var prev = (typeof(accumulator) != 'undefined') ? accumulator :
+      ((Array.isArray(collection)) ? collection.shift() : {});
+
+    _.each(collection, function(item) {
+      prev = iterator(prev, item);
+    });
+
+    return prev;
   };
 
   // Determine if the array or object contains a given value (using `===`).
