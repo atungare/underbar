@@ -109,6 +109,7 @@ var _ = {};
     }
   };
 
+
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
     var result = [];
@@ -415,6 +416,14 @@ var _ = {};
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var start = arguments[0];
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return _.filter(start, function(item) {
+      return ! (_.some(args, function(arg) {
+        return _.contains(arg, item);
+      }));
+    });
   };
 
 
